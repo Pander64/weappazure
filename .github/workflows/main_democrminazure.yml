@@ -21,7 +21,7 @@ jobs:
       with:
         python-version: '3.7'
 
-    - name: Install Python dependencies
+    - name: Create and start virtual environment
       run: |
         python -m venv env
         .\env\Scripts\activate
