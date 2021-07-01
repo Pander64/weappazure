@@ -14,7 +14,7 @@ workflow:
 I can place large workflows without fear of collapsing services thanks to the scalability of the cloud. 
 - *Choose the appropriate solution (VM or App Service) for deploying the app*
 - *Justify your choice*
-I chose app service because it is an acutal application and it is more feasible for the issue of delegating services to azure where we only worry about the application and its security, access, etc.
+I chose app service because the CSM is a lightweight application and created in python app services is compatible for those requirements.
 ### Assess app changes that would change your decision.
 
 *Detail how the app and any other needs would have to change for you to change your decision in the last section.* 
