@@ -5,14 +5,14 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'secret-key'
 
-    BLOB_ACCOUNT = os.environ.get('BLOB_ACCOUNT') or 'csmtaskstorageaccount'
-    BLOB_STORAGE_KEY = os.environ.get('BLOB_STORAGE_KEY') or 'imagesblobs'
-    BLOB_CONTAINER = os.environ.get('BLOB_CONTAINER') or 'Uo96cHj5SP+qy7mzTvsMmY5ckQMawCoXaTtCkNmi2IOeklyOxY5g6SX85XlBr3YfCIyCQ9SytqWUkgzASUEBng=='
+    BLOB_ACCOUNT = os.environ.get('BLOB_ACCOUNT') or 'developertest234'
+    BLOB_STORAGE_KEY = os.environ.get('BLOB_STORAGE_KEY') or 'h4S5CvJQ71dUBlavfuEFrYbtezCcC+MdvasLhY8hH8E5ga3JG9Ud7FP+6pG9vW0BTQ3abziO2d24+AStjBH7Tg=='
+    BLOB_CONTAINER = os.environ.get('BLOB_CONTAINER') or 'developertest23'
 
-    SQL_SERVER = os.environ.get('SQL_SERVER') or 'pancmsdb01.database.windows.net'
-    SQL_DATABASE = os.environ.get('SQL_DATABASE') or 'DatabasePan'
+    SQL_SERVER = os.environ.get('SQL_SERVER') or 'msdocs-azuresql-server-508.database.windows.net'
+    SQL_DATABASE = os.environ.get('SQL_DATABASE') or 'msdocsazuresqldb-509'
     SQL_USER_NAME = os.environ.get('SQL_USER_NAME') or 'azureuser'
-    SQL_PASSWORD = os.environ.get('SQL_PASSWORD') or 'Azure1234567!'
+    SQL_PASSWORD = os.environ.get('SQL_PASSWORD') or 'Panama123'
     # Below URI may need some adjustments for driver version, based on your OS, if running locally
     SQLALCHEMY_DATABASE_URI = 'mssql+pyodbc://' + SQL_USER_NAME + '@' + SQL_SERVER + ':' + SQL_PASSWORD + '@' + SQL_SERVER + ':1433/' + SQL_DATABASE  + '?driver=ODBC+Driver+17+for+SQL+Server'
     SQLALCHEMY_TRACK_MODIFICATIONS = False

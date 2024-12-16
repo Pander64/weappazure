@@ -1,0 +1,65 @@
+#!/bin/bash
+
+az login -t f72a908a-9fea-4072-b78c-1c21d7a96c2b
+
+# must be a unique, you can obtain these in the Azure Portal
+STORAGE_ACCT_NAME="developertest234"
+CONTAINERSTORAGE="developertest23"
+FUNCTION_APP_NAME="DeveloperTest2345"
+RESOURCE_GROUP_NAME="TestDeveloperGroup1"
+APP_PLAN="DeveloeprTest"
+APP_SERVICE_PLAN_NAME_TEST="DeveloperApp1"
+SKU_PLAN="B2"
+RUNTIME_LIST="PYTHON:3.8"
+REGION="East US2"
+
+az group create --location $REGION --resource-group $RESOURCE_GROUP_NAME 
+echo "Creating $server in $REGION..."
+
+# Database 
+server="msdocs-azuresql-server-507"
+database="msdocsazuresqldb-507"
+login="azureuser"
+password="Pa$$w0rD-123"
+# Specify appropriate IP address values for your environment
+# to limit access to the SQL Database server
+startIp=0.0.0.0
+endIp=0.0.0.0
+
+echo "Using resource group $RESOURCE_GROUP_NAME with login: $login, password: $password..."
+echo "Creating $RESOURCE_GROUP_NAME in $REGION..."
+
+az sql server create --name $server --resource-group $RESOURCE_GROUP_NAME --location $REGION --admin-user $login --admin-password $password
+echo "Configuring firewall..."
+az sql server firewall-rule create --resource-group $RESOURCE_GROUP_NAME --server $server -n AllowYourIp --start-ip-address $startIp --end-ip-address $endIp
+echo "Creating $database on $server..."
+az sql db create --resource-group $RESOURCE_GROUP_NAME --server $server --name $database --sample-name AdventureWorksLT --edition GeneralPurpose --family Gen5 --capacity 2 --zone-redundant false # zone redundancy is only supported on premium and business critical service tiers
+az sql db create --resource-group $RESOURCE_GROUP_NAME --server $server  --name $database --zone-redundant false
+
+
+az storage account create \
+    --name $STORAGE_ACCT_NAME \
+    --resource-group $RESOURCE_GROUP_NAME \
+    --location $REGION \
+    --sku Standard_ZRS \
+    --encryption-services blob
+
+az ad signed-in-user show --query id -o tsv | az role assignment create --role "Storage Blob Data Contributor" --assignee @- --scope "/subscriptions/441f4a9b-621a-437f-9c42-397c4abf6f0f/resourceGroups/$RESOURCE_GROUP_NAME/providers/Microsoft.Storage/storageAccounts/$STORAGE_ACCT_NAME"
+
+az storage container create --account-name $STORAGE_ACCT_NAME --name $CONTAINERSTORAGE --auth-mode login
+
+
+az appservice plan create --name $APP_PLAN --resource-group $RESOURCE_GROUP_NAME --sku $SKU_PLAN
+#az webapp list-runtimes
+az webapp create --name $APP_SERVICE_PLAN_NAME_TEST --resource-group $RESOURCE_GROUP_NAME --plan $APP_PLAN --runtime <runtime>
+az webapp show --name $APP_SERVICE_PLAN_NAME_TEST --resource-group $RESOURCE_GROUP_NAME
+
+
+
+
+az group delete --name $RESOURCE_GROUP_NAME
+
+
+
+
+
