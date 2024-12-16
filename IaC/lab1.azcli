@@ -7,7 +7,7 @@ STORAGE_ACCT_NAME="developertest234"
 CONTAINERSTORAGE="developertest23"
 FUNCTION_APP_NAME="DeveloperTest2345"
 RESOURCE_GROUP_NAME="TestDeveloperGroup1"
-APP_PLAN="DeveloeprTest"
+APP_PLAN="DeveloeprTest1"
 APP_SERVICE_PLAN_NAME_TEST="DeveloperApp1"
 SKU_PLAN="B2"
 RUNTIME_LIST="PYTHON:3.8"
@@ -17,10 +17,10 @@ az group create --location $REGION --resource-group $RESOURCE_GROUP_NAME
 echo "Creating $server in $REGION..."
 
 # Database 
-server="msdocs-azuresql-server-507"
-database="msdocsazuresqldb-507"
+server="msdocs-azuresql-server-508"
+database="msdocsazuresqldb-509"
 login="azureuser"
-password="Pa$$w0rD-123"
+password="Panama123"
 # Specify appropriate IP address values for your environment
 # to limit access to the SQL Database server
 startIp=0.0.0.0
@@ -49,9 +49,9 @@ az ad signed-in-user show --query id -o tsv | az role assignment create --role "
 az storage container create --account-name $STORAGE_ACCT_NAME --name $CONTAINERSTORAGE --auth-mode login
 
 
-az appservice plan create --name $APP_PLAN --resource-group $RESOURCE_GROUP_NAME --sku $SKU_PLAN
+az appservice plan create --name $APP_PLAN --resource-group $RESOURCE_GROUP_NAME --sku $SKU_PLAN --is-linux
 #az webapp list-runtimes
-az webapp create --name $APP_SERVICE_PLAN_NAME_TEST --resource-group $RESOURCE_GROUP_NAME --plan $APP_PLAN --runtime <runtime>
+az webapp create --name $APP_SERVICE_PLAN_NAME_TEST --resource-group $RESOURCE_GROUP_NAME --plan $APP_PLAN --runtime $RUNTIME_LIST
 az webapp show --name $APP_SERVICE_PLAN_NAME_TEST --resource-group $RESOURCE_GROUP_NAME
 
 
